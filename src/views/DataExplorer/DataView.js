@@ -82,14 +82,18 @@ export default class DataView extends Component {
     const { className, item } = this.props;
     const CustomView = CUSTOM_VIEWS[item.$type];
 
+    let title = <em>No name</em>;
+
+    if (item.displayProperties && item.displayProperties.name) {
+      title = item.displayProperties.name;
+    } else if (item.progressDescription) {
+      title = item.progressDescription;
+    }
+
     return (
       <div className={cx(className, s.root)} ref={r => (this.ref = r)}>
         <h2 className={s.itemTitle}>
-          {item.displayProperties && item.displayProperties.name ? (
-            item.displayProperties.name
-          ) : (
-            <em>No name</em>
-          )}&nbsp;
+          {title}&nbsp;
           <span className={s.hash}>{item.hash}</span>
         </h2>
 
